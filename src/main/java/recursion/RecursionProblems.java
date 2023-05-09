@@ -78,4 +78,29 @@ public class RecursionProblems {
         if (start == end) return 0;
         return arr[start] + sum(arr, start + 1, end);
     }
+
+    private static int searchElementInRotatedArray(int[] arr, int start, int end, int element) {
+        if (start > end) {
+            return -1;
+        }
+
+        int mid = start + (end - start) / 2;
+        if (arr[mid] == element) {
+            return mid;
+        }
+
+        if (element < arr[mid]) {
+            if (arr[start] <= arr[mid] && arr[start] > element) {
+                return searchElementInRotatedArray(arr, mid + 1, end, element);
+            } else {
+                return searchElementInRotatedArray(arr, start, mid - 1, element);
+            }
+        } else {
+            if (arr[mid] <= arr[end] && element > arr[end]) {
+                return searchElementInRotatedArray(arr, start, mid - 1, element);
+            } else {
+                return searchElementInRotatedArray(arr, mid + 1, end, element);
+            }
+        }
+    }
 }
